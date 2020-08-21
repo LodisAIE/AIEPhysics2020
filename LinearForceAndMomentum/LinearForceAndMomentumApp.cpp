@@ -1,18 +1,19 @@
-#include "FixedTimeStepApp.h"
+#include "LinearForceAndMomentumApp.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
 #include <Gizmos.h>
 #include "PhysicsScene.h"
-FixedTimeStepApp::FixedTimeStepApp() {
+#include "Sphere.h"
+LinearForceAndMomentumApp::LinearForceAndMomentumApp() {
 
 }
 
-FixedTimeStepApp::~FixedTimeStepApp() {
+LinearForceAndMomentumApp::~LinearForceAndMomentumApp() {
 
 }
 
-bool FixedTimeStepApp::startup() {
+bool LinearForceAndMomentumApp::startup() {
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
 	m_2dRenderer = new aie::Renderer2D();
@@ -20,17 +21,23 @@ bool FixedTimeStepApp::startup() {
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 	physicsScene = new PhysicsScene();
+	physicsScene->setGravity(glm::vec2(0,0));
 	physicsScene->setTimeStep(0.01f);
+
+	Sphere* ball1 = new Sphere(glm::vec2(-10, 0), glm::vec2(5, 0), 4.0f, 4, glm::vec4(1, 0, 0, 1));
+	Sphere* ball2 = new Sphere(glm::vec2(10, 0), glm::vec2(-5, 0), 4.0f, 4, glm::vec4(0, 1, 0, 1));
+	physicsScene->addActor(ball1);
+	physicsScene->addActor(ball2);
 	return true;
 }
 
-void FixedTimeStepApp::shutdown() {
+void LinearForceAndMomentumApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
 }
 
-void FixedTimeStepApp::update(float deltaTime) {
+void LinearForceAndMomentumApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
@@ -44,7 +51,7 @@ void FixedTimeStepApp::update(float deltaTime) {
 		quit();
 }
 
-void FixedTimeStepApp::draw() {
+void LinearForceAndMomentumApp::draw() {
 
 	// wipe the screen to the background colour
 	clearScreen();

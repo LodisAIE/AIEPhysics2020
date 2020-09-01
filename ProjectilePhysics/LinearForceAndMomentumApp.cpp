@@ -20,21 +20,14 @@ bool LinearForceAndMomentumApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
-	m_physicsScene = new PhysicsScene();
-	m_physicsScene->setGravity(glm::vec2(0,0));
-	m_physicsScene->setTimeStep(0.01f);
-
-	Sphere* ball1 = new Sphere(glm::vec2(-40.0f, 0.0f), glm::vec2(60.0f, 0.0f),
-		8.0f, 8.0f, glm::vec4(1, 0, 0, 1));
-	m_physicsScene->addActor(ball1);
-
-	Sphere* ball2 = new Sphere(glm::vec2(40.0f, 0.0f), glm::vec2(-30.0f, 0.0f),
-		2.0f, 6.0f, glm::vec4(0, 1, 0, 1));
-	m_physicsScene->addActor(ball2);
-
-	Sphere* ball3 = new Sphere(glm::vec2(60.0f, 0.0f), glm::vec2(-30.0f, 0.0f),
-		1.0f, 4.0f, glm::vec4(0, 0, 1, 1));
-	m_physicsScene->addActor(ball3);
+	physicsScene = new PhysicsScene();
+	physicsScene->setGravity(glm::vec2(0,-10));
+	physicsScene->setTimeStep(0.5f);
+	setupContinuousDemo({ -40,0 }, { 20, 25 }, 10);
+	Sphere* ball1 = new Sphere(glm::vec2(-40, 0), glm::vec2(20, 25), 1.0f, 1, glm::vec4(1, 0, 0, 1));
+	//Sphere* ball2 = new Sphere(glm::vec2(10, 0), glm::vec2(-5, 0), 4.0f, 4, glm::vec4(0, 1, 0, 1));
+	physicsScene->addActor(ball1);
+	//physicsScene->addActor(ball2);*/
 	return true;
 }
 
@@ -44,15 +37,33 @@ void LinearForceAndMomentumApp::shutdown() {
 	delete m_2dRenderer;
 }
 
+void LinearForceAndMomentumApp::setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, float gravity)
+{
+	float t = 0;
+	float tStep = 0.5f;
+	float radius = 1.0f;
+	int segments = 12;
+	glm::vec4 color = glm::vec4(1, 1, 0, 1);
+	int x;
+	int y;
+	while (t <= 5)
+	{
+		x = startPos.x + velocity.x*t;
+		y = startPos.y + velocity.y *t + .5f * -gravity * t*t;
+		aie::Gizmos::add2DCircle(glm::vec2(x, y), radius, segments, color);
+		t += tStep;
+	}
+}
+
 void LinearForceAndMomentumApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
-	aie::Gizmos::clear();
+	//aie::Gizmos::clear();
 
-	m_physicsScene->update(deltaTime);
-	m_physicsScene->updateGizmos();
+	physicsScene->update(deltaTime);
+	physicsScene->updateGizmos();
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();

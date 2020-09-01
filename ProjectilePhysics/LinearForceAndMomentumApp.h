@@ -11,10 +11,10 @@ public:
 
 	virtual bool startup();
 	virtual void shutdown();
-
+	void setupContinuousDemo(glm::vec2 startPos, glm::vec2 velocity, float gravity);
 	virtual void update(float deltaTime);
 	virtual void draw();
-	PhysicsScene* m_physicsScene;
+	PhysicsScene* physicsScene;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

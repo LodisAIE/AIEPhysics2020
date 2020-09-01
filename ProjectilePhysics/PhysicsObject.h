@@ -10,7 +10,7 @@ class PhysicsObject
 {
 protected:
 	ShapeType m_shapeID;
-	PhysicsObject();
+	PhysicsObject() {};
 	PhysicsObject(ShapeType a_shapeID) : m_shapeID(a_shapeID) {}
 
 public:

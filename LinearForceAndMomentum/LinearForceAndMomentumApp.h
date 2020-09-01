@@ -14,7 +14,7 @@ public:
 
 	virtual void update(float deltaTime);
 	virtual void draw();
-	PhysicsScene* physicsScene;
+	PhysicsScene* m_physicsScene;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

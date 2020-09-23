@@ -14,6 +14,7 @@ LinearForceAndMomentumApp::~LinearForceAndMomentumApp() {
 
 }
 
+
 bool LinearForceAndMomentumApp::startup() {
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
@@ -25,26 +26,42 @@ bool LinearForceAndMomentumApp::startup() {
 	m_physicsScene->setGravity(glm::vec2(0,-10));
 	m_physicsScene->setTimeStep(0.01f);
 
-	Sphere* ball1 = new Sphere(glm::vec2(-40.0f, 0.0f), glm::vec2(60.0f, 12.0f),
-		8.0f, 8.0f, glm::vec4(1, 0, 0, 1));
-	m_physicsScene->addActor(ball1);
+	// create a balls to print on the screen
+	Sphere* movingBall = new Sphere({ 10,20 }, { 18,15 }, 1.0f, 4.0f, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+	m_physicsScene->addActor(movingBall);
 
-	Sphere* ball2 = new Sphere(glm::vec2(40.0f, 0.0f), glm::vec2(-60.0f, 6.0f),
-		2.0f, 6.0f, glm::vec4(0, 1, 0, 1));
-	m_physicsScene->addActor(ball2);
-	
-	Sphere* ball3 = new Sphere(glm::vec2(60.0f, 0.0f), glm::vec2(-60.0f, 10.0f),
-	1.0f, 4.0f, glm::vec4(0, 0, 1, 1));
-	m_physicsScene->addActor(ball3);
+	//Redish
+	Sphere* topBall = new Sphere(glm::vec2(60.0f, 30.0f), glm::vec2(0.0f, 0.0f), 1.0f, 4.0f, glm::vec4(1.0f, 0.3f, 0.0f, 1.0f));
+	m_physicsScene->addActor(topBall);
 
-	Plane* planeBottom = new Plane(glm::normalize(glm::vec2{ 0,1 }), -40);
-	m_physicsScene->addActor(planeBottom);
-	Plane* planeRight = new Plane(glm::normalize(glm::vec2{ 1,0 }), 80);
-	m_physicsScene->addActor(planeRight);
-	Plane* planeLeft = new Plane(glm::normalize(glm::vec2{ 1,0 }), -80);
-	m_physicsScene->addActor(planeLeft);
-	Plane* planeTop = new Plane(glm::normalize(glm::vec2{ 0,1 }), 80);
-	m_physicsScene->addActor(planeTop);
+	//Orange
+	Sphere* secondBall = new Sphere(glm::vec2(60.0f, 20.0f), glm::vec2(0.0f, 0.0f), 1.0f, 4.0f, glm::vec4(1.0f, 0.5f, 0.0f, 1.0f));
+	m_physicsScene->addActor(secondBall);
+
+	//White
+	Sphere* thirdBall = new Sphere(glm::vec2(60.0f, 10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 4.0f, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_physicsScene->addActor(thirdBall);
+
+	//Pink
+	Sphere* forthBall = new Sphere(glm::vec2(60.0f, 0.0f), glm::vec2(0.0f, 0.0f), 1.0f, 4.0f, glm::vec4(1.0f, 0.0f, 0.5f, 1.0f));
+	m_physicsScene->addActor(forthBall);
+
+	//Purplish
+	Sphere* fifthBall = new Sphere(glm::vec2(60.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 4.0f, glm::vec4(0.7f, 0.0f, 0.5f, 1.0f));
+	m_physicsScene->addActor(fifthBall);
+
+	//box
+	Plane* floor = new Plane(glm::normalize(glm::vec2(0.0f, -20.0f)), 40.0f);
+	m_physicsScene->addActor(floor);
+
+	Plane* rightWall = new Plane(glm::normalize(glm::vec2(80.0f, 0.0f)), 80.0f);
+	m_physicsScene->addActor(rightWall);
+
+	Plane* leftWall = new Plane(glm::normalize(glm::vec2(-80.0f, 0.0f)), 80.0f);
+	m_physicsScene->addActor(leftWall);
+
+	Plane* roof = new Plane(glm::normalize(glm::vec2(0.0f, 20.0f)), 40.0f);
+	m_physicsScene->addActor(roof);
 	return true;
 }
 

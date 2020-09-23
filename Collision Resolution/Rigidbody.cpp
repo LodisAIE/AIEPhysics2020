@@ -6,7 +6,6 @@ Rigidbody::Rigidbody(ShapeType shapeID, glm::vec2 position, glm::vec2 velocity, 
 {
 	m_position = position;
 	m_velocity = velocity;
-	m_angularVelocity = 0;
 	m_rotation = rotation;
 	m_mass = mass;
 	m_linearDrag = 0.3;
